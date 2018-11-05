@@ -1,1 +1,1 @@
-# psLastFMAlbum
+# pyLastFMAlbum
