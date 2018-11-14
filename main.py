@@ -25,24 +25,27 @@ def get_tracks(response_json):
 
     for track in response_json:
         # Ignore track without album name and ignore currently playing track
-        if track['album']['#text'] != "":
-            pass
-        if "@attr" not in track.keys():
-            pass
-        else:
+        if track['album']['#text'] != "" and "@attr" not in track.keys():
+
             album = str("{} - {}".format(track['artist']['#text'], track['album']['#text']))
             date = track['date']['#text']
 
-            if album not in [item[0] for item in album_list]:
-                album_list.append([album, 0, date])
-            else:
-                for n, i in enumerate(album_list):
-                    if i[0] == album:
-                        nbr_song_in_album = album_list[n][1] + 1
-                        date = album_list[n][2]
-                        album_list[n] = [album, nbr_song_in_album, date]
+            album_list = add_album(album, date, album_list)
+
     return album_list
 
+def add_album(album, date, album_list):
+
+    if album not in[item[0] for item in album_list]:
+        album_list.append([album, 0, date])
+    else:
+        for n, i in enumerate(album_list):
+            if i[0] == album:
+                nbr_song_in_album = album_list[n][1] + 1
+                date = album_list[n][2]
+                album_list[n] = [album, nbr_song_in_album, date]
+
+    return album_list
 
 def main():
 
