@@ -53,17 +53,16 @@ def add_album(album, date, album_list):
 def main():
 
     config_parsing()
+    LASTFM_URL = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks"
 
     payload = {'limit': LIMIT, "user": USER,
                "api_key": API_KEY, "format": FORMAT}
-    response = requests.get('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks',
-                            params=payload)
+    response = requests.get(LASTFM_URL, params=payload)
     response_json = json.loads(response.text)["recenttracks"]['track']
 
     album_list = get_tracks(response_json)
 
-    print(*("{} - {} ".format(item[1], item[0]) for item in album_list),
-          sep="\n")
+    print(*("{} - {} ".format(item[1], item[0]) for item in album_list), sep="\n")
 
 
 if __name__ == '__main__':
