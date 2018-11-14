@@ -38,7 +38,9 @@ def get_tracks(response_json):
 
 def add_album(album, date, album_list):
 
-    if album not in[item[0] for item in album_list]:
+    album_in_list = [item[0] for item in album_list]
+
+    if album not in album_in_list:
         album_list.append([album, date])
         return album_list
 
