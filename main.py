@@ -40,14 +40,14 @@ def add_album(album, date, album_list):
 
     if album not in[item[0] for item in album_list]:
         album_list.append([album, date])
+		return album_list
 
-    else:
-        for n, i in enumerate(album_list):
-            if i[0] == album:
-                date = album_list[n][1]
-                album_list[n] = [album, date]
-
-    return album_list
+	for n, i in enumerate(album_list):
+		if i[0] == album:
+			date = album_list[n][1]
+			album_list[n] = [album, date]
+			
+	return album_list
 
 
 def main():
