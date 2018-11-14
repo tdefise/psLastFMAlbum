@@ -56,7 +56,8 @@ def main():
 
     payload = {'limit': LIMIT, "user": USER,
                "api_key": API_KEY, "format": FORMAT}
-    response = requests.get('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks', params=payload)
+    response = requests.get('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks',
+                            params=payload)
     response_json = json.loads(response.text)["recenttracks"]['track']
 
     album_list = get_tracks(response_json)
