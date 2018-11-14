@@ -1,7 +1,5 @@
-engines:
+plugins:
   bandit:
     enabled: true
-
-plugins:
-  pep8:
-    enabled: true
+    config:
+      python_version: 3
