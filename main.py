@@ -19,20 +19,14 @@ def config_parsing():
     FORMAT = config['Default']['Format']
 
 
-def main():
+def get_track(response_json):
 
     album_list = list()
 
-    config_parsing()
-
-    payload = {'limit': LIMIT, "user": USER, "api_key": API_KEY, "format": FORMAT}
-    response = requests.get('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks', params=payload)
-    response_json = json.loads(response.text)
-
-    for track in response_json["recenttracks"]['track']:
+    for track in response_json:
         # Ignore track without album name and ignore currently playing track
         if (track['album']['#text'] != "" and \
-           "@attr" not in track.keys()):
+                "@attr" not in track.keys()):
 
             album = str("{} - {}".format(track['artist']['#text'], track['album']['#text']))
             date = track['date']['#text']
@@ -41,7 +35,22 @@ def main():
             else:
                 for n, i in enumerate(album_list):
                     if i[0] == album:
-                        album_list[n] = [album, album_list[n][1]+1, album_list[n][2]]
+                        nbr_song_in_album = album_list[n][1] + 1
+                        date_listened = album_list[n][2]
+                        album_list[n] = [album, nbr_song_in_album, date_listened]
+    return album_list
+
+
+def main():
+
+
+    config_parsing()
+
+    payload = {'limit': LIMIT, "user": USER, "api_key": API_KEY, "format": FORMAT}
+    response = requests.get('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks', params=payload)
+    response_json = json.loads(response.text)["recenttracks"]['track']
+
+    album_list = get_track(response_json)
 
     print(*("{} - {} ".format(item[2], item[0]) for item in album_list), sep="\n")
 
