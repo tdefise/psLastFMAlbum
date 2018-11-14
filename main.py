@@ -19,16 +19,20 @@ def config_parsing():
     FORMAT = config['Default']['Format']
 
 
-def get_track(response_json):
+def get_tracks(response_json):
 
     album_list = list()
 
     for track in response_json:
         # Ignore track without album name and ignore currently playing track
-        if track['album']['#text'] != "" and "@attr" not in track.keys():
-
+        if track['album']['#text'] != "":
+            pass
+        if "@attr" not in track.keys():
+            pass
+        else:
             album = str("{} - {}".format(track['artist']['#text'], track['album']['#text']))
             date = track['date']['#text']
+
             if album not in [item[0] for item in album_list]:
                 album_list.append([album, 0, date])
             else:
@@ -49,7 +53,7 @@ def main():
     response = requests.get('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks', params=payload)
     response_json = json.loads(response.text)["recenttracks"]['track']
 
-    album_list = get_track(response_json)
+    album_list = get_tracks(response_json)
 
     print(*("{} - {} ".format(item[2], item[0]) for item in album_list), sep="\n")
 
