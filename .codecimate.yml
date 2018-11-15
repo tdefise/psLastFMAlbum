@@ -1,5 +1,16 @@
+languages:
+    Python: true
+    
 plugins:
   bandit:
     enabled: true
     config:
       python_version: 3
+  pep8:
+    enabled: true
+  sonar-python:
+    enabled: true
+  shellcheck:
+    enabled: true
+  radon: 
+    enabled: true
