@@ -1,6 +1,5 @@
 languages:
     Python: true
-    
 plugins:
   bandit:
     enabled: true
@@ -12,5 +11,5 @@ plugins:
     enabled: true
   shellcheck:
     enabled: true
-  radon: 
+  radon:
     enabled: true
