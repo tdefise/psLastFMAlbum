@@ -1,0 +1,1 @@
+- Absolute imports are recommended, as they are usually more readable and tend to be better behaved
