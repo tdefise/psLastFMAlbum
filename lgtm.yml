@@ -1,3 +1,6 @@
+path_classifiers:
+  docs:
+    - README.md
 extraction:
   python:
     python_setup:
