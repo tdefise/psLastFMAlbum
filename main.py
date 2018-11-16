@@ -22,7 +22,6 @@ def config_parsing():
 def get_tracks(response_json):
 
     album_list = list()
-	
     for track in response_json:
         # Ignore track without album name and ignore currently playing track
         if track['album']['#text'] != "" and "@attr" not in track.keys():
