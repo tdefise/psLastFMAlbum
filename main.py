@@ -3,20 +3,22 @@ import json
 import requests
 import configparser
 
-LIMIT = 0
-USER = 0
-API_KEY = ""
-FORMAT = ""
 
+class INISettings:
+	
+    def __init__(self):
+        self.limit = 0
+        self.user = 0
+        self.api_key = ""
+        self.format = ""
 
-def config_parsing():
-    global LIMIT, USER, API_KEY, FORMAT
-    config = configparser.ConfigParser()
-    config.read('config.ini')
-    LIMIT = config['Default']['Limit']
-    USER = config['Default']['User']
-    API_KEY = config['Default']['API_Key']
-    FORMAT = config['Default']['Format']
+    def config_parsing(self):
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        self.limit = config['Default']['Limit']
+        self.user = config['Default']['User']
+        self.api_key = config['Default']['API_Key']
+        self.format = config['Default']['Format']
 
 
 def get_tracks(response_json):
@@ -53,21 +55,24 @@ def add_album(album, date, album_list):
 
 def display_list(album_list):
     for item in album_list:
-	    print("{} - {} ".format(item[1], item[0]))
+        print("{} - {} ".format(item[1], item[0]))
 
 
 def main():
 
-    config_parsing()
+    config = INISettings()
+    config.config_parsing()
+
     LASTFM_URL = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks"
 
-    payload = {'limit': LIMIT, "user": USER,
-               "api_key": API_KEY, "format": FORMAT}
+	
+    payload = {'limit': config.limit, "user": config.user,
+               "api_key": config.api_key, "format": config.format}
     response = requests.get(LASTFM_URL, params=payload)
     response_json = json.loads(response.text)["recenttracks"]['track']
     album_list = get_tracks(response_json)
     display_list(album_list)
-	
+
 
 if __name__ == '__main__':
     main()
