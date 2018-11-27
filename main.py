@@ -23,7 +23,7 @@ class INISettings:
 
 def internet_on():
     try:
-        urllib.request.urlopen('http://ws.audioscrobbler.com/', timeout=1)
+        urllib.request.urlopen('http://ws.audioscrobbler.com', timeout=1)
         return True
     except urllib.error.URLError:
         return False
