@@ -20,7 +20,7 @@ class INISettings(object):
         self.format = config['Default']['Format']
 
 
-def internet_on(): 
+def internet_on():
     try:
         _ = requests.get('http://ws.audioscrobbler.com')
         return True
@@ -73,7 +73,6 @@ def main():
 
     LASTFM_URL = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks"
 
-	
     payload = {'limit': config.limit, "user": config.user,
                "api_key": config.api_key, "format": config.format}
     response = requests.get(LASTFM_URL, params=payload)
