@@ -22,7 +22,7 @@ class INISettings(object):
 
 def internet_on(): 
     try:
-        r = requests.get('http://ws.audioscrobbler.com')
+        _ = requests.get('http://ws.audioscrobbler.com')
         return True
     except requests.exceptions.RequestException as e:  # This is the correct syntax
         print (e)
