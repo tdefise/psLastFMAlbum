@@ -21,14 +21,13 @@ class INISettings:
         self.format = config['Default']['Format']
 
 
-def internet_on():
-    try:
-        req = urllib.request.Request('http://ws.audioscrobbler.com')
-        urllib.request.urlopen(req, timeout=1)
-        return True
-    except urllib.error.URLError:
-        return False
-
+def internet_on():    
+	try:
+        r = requests.get('http://ws.audioscrobbler.com', params={'s': thing})
+		return True
+    except requests.exceptions.RequestException as e:  # This is the correct syntax
+        print e
+        sys.exit(1)
 
 def get_tracks(response_json):
 
