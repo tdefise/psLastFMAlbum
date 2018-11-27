@@ -2,6 +2,7 @@
 import json
 import requests
 import configparser
+import urllib
 
 
 class INISettings:
@@ -19,6 +20,14 @@ class INISettings:
         self.user = config['Default']['User']
         self.api_key = config['Default']['API_Key']
         self.format = config['Default']['Format']
+
+
+def internet_on():
+    try:
+        urllib.request.urlopen('http://ws.audioscrobbler.com/', timeout=1)
+        return True
+    except urllib.error.URLError as err: 
+        return False
 
 
 def get_tracks(response_json):
@@ -59,7 +68,8 @@ def display_list(album_list):
 
 
 def main():
-
+    
+    internet_on()
     config = INISettings()
     config.config_parsing()
 
