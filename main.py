@@ -2,7 +2,6 @@
 import json
 import requests
 import configparser
-import urllib
 
 
 class INISettings:
@@ -22,8 +21,8 @@ class INISettings:
 
 
 def internet_on():    
-	try:
-        r = requests.get('http://ws.audioscrobbler.com', params={'s': thing})
+    try:
+        r = requests.get('http://ws.audioscrobbler.com')
 		return True
     except requests.exceptions.RequestException as e:  # This is the correct syntax
         print e
