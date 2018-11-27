@@ -23,10 +23,11 @@ class INISettings:
 def internet_on():    
     try:
         r = requests.get('http://ws.audioscrobbler.com')
-		return True
+        return True
     except requests.exceptions.RequestException as e:  # This is the correct syntax
         print e
         sys.exit(1)
+
 
 def get_tracks(response_json):
 
