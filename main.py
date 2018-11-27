@@ -4,7 +4,7 @@ import requests
 import configparser
 
 
-class INISettings:
+class INISettings(object):
     def __init__(self):
         self.limit = 0
         self.user = 0
@@ -20,12 +20,12 @@ class INISettings:
         self.format = config['Default']['Format']
 
 
-def internet_on():    
+def internet_on(): 
     try:
         r = requests.get('http://ws.audioscrobbler.com')
         return True
     except requests.exceptions.RequestException as e:  # This is the correct syntax
-        print e
+        print (e)
         sys.exit(1)
 
 
@@ -67,7 +67,6 @@ def display_list(album_list):
 
 
 def main():
-    
     internet_on()
     config = INISettings()
     config.config_parsing()
