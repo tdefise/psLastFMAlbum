@@ -6,7 +6,6 @@ import urllib
 
 
 class INISettings:
-	
     def __init__(self):
         self.limit = 0
         self.user = 0
@@ -26,7 +25,7 @@ def internet_on():
     try:
         urllib.request.urlopen('http://ws.audioscrobbler.com/', timeout=1)
         return True
-    except urllib.error.URLError as err: 
+    except urllib.error.URLError:
         return False
 
 
